@@ -3,7 +3,7 @@ import os
 import openai
 
 # Replace with your actual OpenAI API key
-openai.api_key = os.environ.get("OPENAI_API_KEY")
+openai.api_key = "sk-proj-alongandveryrandomseriesofcharacters"
 
 if not openai.api_key:
     raise ValueError("OpenAI API key not found. Please set the OPENAI_API_KEY environment variable.")
@@ -11,15 +11,16 @@ if not openai.api_key:
 def generate_llm_response(prompt):
     """Generates a response from the OpenAI API."""
     try:
-        completion = openai.Completion.create(
-            engine="text-davinci-003",  # Or another suitable engine
-            prompt=prompt,
-            max_tokens=200,
-            n=1,
-            stop=None,
-            temperature=0.7,
+        response = openai.chat.completions.create(
+            model="gpt-3.5-turbo",
+            messages=[
+                {"role": "system", "content": "You are a helpful assistant that understands and responds to API requests"},
+                {"role": "user", "content": prompt}
+            ],
+            temperature=0.8,
         )
-        return completion.choices[0].text.strip()
+
+        return response.choices[0].message.content
     except Exception as e:
         print(f"Error generating LLM response: {e}")
         return "Error: Could not generate response."
@@ -35,13 +36,13 @@ def wildcard_route(path):
         if query_string:
             full_path += f"?{query_string}"
 
-        prompt = f"Respond to the following request: {full_path}"
+        prompt = f"You are a backend API engine respond to the following request, reply only with the api response and nothing else: {full_path}"
 
         # Generate the LLM response.
         llm_response = generate_llm_response(prompt)
 
         # Set the response content type.
-        response.content_type = 'text/plain'
+        response.content_type = 'text/json'
 
         return llm_response
 
@@ -52,4 +53,4 @@ def wildcard_route(path):
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 8080))
-    run(host='0.0.0.0', port=port, debug=True, reloader=True) # debug and reloader for development. Remove for production.
+    run(host='0.0.0.0', port=port, debug=True, reloader=True)
