@@ -2,6 +2,12 @@
 
 *Because who needs documentation when you have AI?*
 
+
+
+https://github.com/user-attachments/assets/6bbcc49d-aef5-46a6-9e33-e43a1c3dbd1d
+
+
+
 ## What is this sorcery? 
 
 AnyAPI is a revolutionary tool that turns "I wish I had an API for that" into "I totally have an API for that!" It's basically an API hallucination machine - just point it at any endpoint you wish existed, and watch as GPT pretends it's been there all along!
@@ -13,7 +19,7 @@ AnyAPI is a revolutionary tool that turns "I wish I had an API for that" into "I
    ```
    pip install bottle openai
    ```
-3. Set your OpenAI API key (or use ours, just kidding, please don't)
+3. Set your OpenAI API key (or use mine, just kidding, please don't)
 4. Run the application:
    ```
    python app.py
